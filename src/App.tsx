@@ -3,7 +3,10 @@ import {Box, CodePane, Deck, FlexBox, FullScreen, Heading, Progress, Slide, Text
 import {Example1} from './examples/example1';
 import {Example2} from './examples/example2';
 import {Example3} from './examples/example3';
+import {ExampleBump} from './examples/exampleBump';
+import {ExampleBump2} from './examples/exampleBump2';
 import {ExampleVideo} from './examples/exampleVideo';
+import {ExampleWebcam} from './examples/exampleWebcam';
 
 const theme = {};
 const template = (
@@ -47,6 +50,24 @@ const App: React.FC = () => {
       </Slide>
       <Slide>
         <ExampleVideo />
+        <CodePane source="CodePane" lang="js">
+          hi
+        </CodePane>
+      </Slide>
+      <Slide>
+        <ExampleWebcam />
+        <CodePane source="CodePane" lang="js">
+          hi
+        </CodePane>
+      </Slide>
+      <Slide>
+        <ExampleBump />
+        <CodePane source="CodePane" lang="js">
+          hi
+        </CodePane>
+      </Slide>
+      <Slide>
+        <ExampleBump2 />
         <CodePane source="CodePane" lang="js">
           hi
         </CodePane>

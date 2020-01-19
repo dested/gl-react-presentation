@@ -5,6 +5,7 @@ import React, {Component, useState} from 'react';
 const shaders = Shaders.create({
   helloBlue: {
     // uniforms are variables from JS. We pipe blue uniform into blue output color
+    // language=GLSL
     frag: GLSL`
 precision highp float;
 varying vec2 uv;

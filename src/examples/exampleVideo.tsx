@@ -41,6 +41,7 @@ export class Video extends Component<{onFrame: (time: number) => void} & VideoHT
 // Our example will simply split R G B channels of the video.
 const shaders = Shaders.create({
   SplitColor: {
+    // language=GLSL
     frag: GLSL`
 precision highp float;
 varying vec2 uv;
