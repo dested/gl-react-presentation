@@ -3,6 +3,7 @@ import {Surface} from 'gl-react-dom';
 import React, {FC} from 'react';
 import {CodePane, Deck, Fill, Fit, Heading, List, ListItem, Quote, Slide, Text} from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
+import bump from './examples/bump.png';
 import devil from './examples/devil.gif';
 import {ExampleBump} from './examples/exampleBump';
 import {ExampleBump2} from './examples/exampleBump2';
@@ -871,7 +872,8 @@ void main () {
         gl_FragColor = vec4(1.0-c.r,1.0-c.g,1.0-c.b,1.0);
     }
 }`}
-          /><CodePane
+          />
+          <CodePane
             lang={'jsx'}
             style={{fontSize: 30, minWidth: 1200}}
             contentEditable={false}
@@ -880,15 +882,26 @@ void main () {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          what other cool things can we do. we can create a custom texture map
+          <Heading textColor={'primary'}>What else?</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          map.png this is a regular ole png. nothing special, but since we can pass a texture in as props, we can use it
-          to manipulate our image
+          <Heading textColor={'primary'}>Did someone say Texture Mapping?</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          map.png lets not think of this as a png, lets think of it as data. the data weve encode here is a value from 0
-          to 1
+          <div className={'col'}>
+            <img src={bump} style={{height: 400}} />
+            <Heading textColor={'primary'} style={{marginTop: 20}} textSize={'50px'}>
+              This is a regular ole png. Not a special png.
+            </Heading>
+          </div>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <div className={'col'}>
+            <img src={bump} style={{height: 400}} />
+            <Heading textColor={'primary'} style={{marginTop: 20}} textSize={'50px'}>
+              This is a very special 2d array of 0-1 values
+            </Heading>
+          </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleBump />
