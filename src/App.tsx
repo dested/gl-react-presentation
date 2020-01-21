@@ -12,6 +12,7 @@ import {ExampleVideo} from './examples/exampleVideo';
 import {ExampleWebcam} from './examples/exampleWebcam';
 import {ExamplePixelate} from './examples/pixelate';
 import {Simple} from './examples/simple';
+import videoMP4 from './examples/video.mp4';
 
 const theme = createTheme(
   {
@@ -28,7 +29,7 @@ const App: React.FC = () => {
   return (
     <>
       <div className={'footer'}>@dested</div>
-      <Deck autoplay={false} theme={theme} showFullscreenControl={false} contentWidth={'90vw'}>
+      <Deck autoplay={false} theme={theme} showFullscreenControl={false} contentWidth={'80vw'}>
         <Slide bgColor={'back'} textColor={'primary'}>
           <Heading textColor={'primary'}>WebGL In React (& Native)</Heading>
         </Slide>
@@ -141,7 +142,7 @@ const App: React.FC = () => {
         <Slide bgColor={'back'} textColor={'primary'}>
           <CodePane
             lang={'c'}
-            style={{fontSize: 30}}
+            style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`void main() {
   gl_FragColor = vec4(1.0, 0.0, 0.0,1.0);
@@ -154,7 +155,7 @@ const App: React.FC = () => {
         <Slide bgColor={'back'} textColor={'primary'}>
           <CodePane
             lang={'c'}
-            style={{fontSize: 30}}
+            style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`void main() {
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
@@ -172,7 +173,7 @@ void main() {
         <Slide bgColor={'back'} textColor={'primary'}>
           <CodePane
             lang={'c'}
-            style={{fontSize: 30}}
+            style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`varying vec2 uv;
 void main() {
@@ -195,14 +196,14 @@ void main() {
         <Slide bgColor={'back'} textColor={'primary'}>
           <CodePane
             lang={'jsx'}
-            style={{fontSize: 30}}
+            style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`let shaders = Shaders.create({
   simple: {
     frag: GLSL\`
 varying vec2 uv;
 void main() {
-  gl_FragColor = vec4(0.0, 0.0, 0.0,1.0);
+  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
 }\`
   }
 });
@@ -216,10 +217,90 @@ void main() {
           <Example1 />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Example2 />
+          <div className={'row'}>
+            <Example2 />
+            <CodePane
+              lang={'jsx'}
+              style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
+              contentEditable={false}
+              source={`let shaders = Shaders.create({
+  simple: {
+    frag: GLSL\`
+uniform float green;
+void main() {
+  gl_FragColor = vec4(0.0, green, 0.0, 1.0);
+}
+\`
+  }
+});
+
+const [green, setGreen] = useState(0.8);
+<Surface width={300} height={300}>
+  <Node shader={shaders.green} uniforms={{green}} />
+</Surface>
+<input type="range" value={green} onChange={e=> setGreen(e.target.valueAsNumber)} />
+`}
+            />
+          </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Example3 />
+          <div className={'row'}>
+            <Example3 fancy={false} />
+            <CodePane
+              lang={'jsx'}
+              style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
+              contentEditable={false}
+              source={`let shaders = Shaders.create({
+  simple: {
+    frag: GLSL\`
+uniform float blue;
+void main() {
+  gl_FragColor = vec4(0.0, 0.0, blue, 1.0);
+}\`
+  }
+});
+
+const time = useTimeLoop(60);
+<Surface width={300} height={300}>
+  <Node
+    shader={shaders.simple}
+    uniforms={{blue: 0.5 + 0.5 * Math.cos(time / 500)}}
+  />
+</Surface>`}
+            />
+          </div>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <div className={'row'}>
+            <Example3 fancy={true} />
+            <CodePane
+              lang={'jsx'}
+              style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
+              contentEditable={false}
+              source={`let shaders = Shaders.create({
+  fancy: {
+    frag: GLSL\`
+uniform float blue;
+void main() {
+  gl_FragColor = vec4(uv.x, uv.y, blue, 1.0);
+}\`
+  }
+});
+
+const time = useTimeLoop(60);
+<Surface width={300} height={300}>
+  <Node
+    shader={shaders.fancy}
+    uniforms={{blue: 0.5 + 0.5 * Math.cos(time / 500)}}
+  />
+</Surface>`}
+            />
+          </div>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <video autoPlay loop width={1024} height={720} muted>
+            <source type="video/mp4" src={videoMP4} />
+          </video>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleVideo />

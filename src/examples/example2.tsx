@@ -3,29 +3,26 @@ import {Surface} from 'gl-react-dom';
 import React, {Component, useState} from 'react';
 
 const shaders = Shaders.create({
-  helloBlue: {
-    // uniforms are variables from JS. We pipe blue uniform into blue output color
+  green: {
     // language=GLSL
     frag: GLSL`
 precision highp float;
-varying vec2 uv;
-uniform float blue;
+uniform float green;
 void main() {
-  gl_FragColor = vec4(uv.x, uv.y, blue, 1.0);
+  gl_FragColor = vec4(0.0, green, 0.0, 1.0);
 }
 `,
   },
 });
 
-// Our example will pass the slider value to HelloBlue
 export function Example2() {
-  const [blue, setBlue] = useState(0.2);
+  const [green, setGreen] = useState(0.8);
   return (
-    <>
+    <div className={'col'}>
       <Surface width={300} height={300}>
-        <Node shader={shaders.helloBlue} uniforms={{blue}} />
+        <Node shader={shaders.green} uniforms={{green}} />
       </Surface>
-      <input type="range" value={blue} min={0} max={1} onChange={e => setBlue(e.target.valueAsNumber)} step={0.01} />
-    </>
+      <input type="range" value={green} min={0} max={1} onChange={e => setGreen(e.target.valueAsNumber)} step={0.01} />
+    </div>
   );
 }

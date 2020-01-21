@@ -3,7 +3,6 @@ import {Surface} from 'gl-react-dom';
 import raf from 'raf';
 import React, {Component, VideoHTMLAttributes} from 'react';
 import videoMP4 from './video.mp4';
-export {videoMP4};
 
 // We implement a component <Video> that is like <video>
 // but provides a onFrame hook so we can efficiently only render
@@ -70,7 +69,7 @@ const SplitColor = ({children}: {children: (redraw: (time: number) => void) => v
 // redraw is passed to Video onFrame event and Node gets redraw each video frame.
 export const ExampleVideo = () => (
   <>
-    <Surface width={280} height={630} pixelRatio={1}>
+    <Surface width={426} height={720} pixelRatio={1}>
       <SplitColor>
         {redraw => (
           <Video onFrame={redraw} autoPlay loop>
@@ -79,8 +78,6 @@ export const ExampleVideo = () => (
         )}
       </SplitColor>
     </Surface>
-    <video autoPlay loop width={280} height={630 / 3}>
-      <source type="video/mp4" src={videoMP4} />
-    </video>
+
   </>
 );
