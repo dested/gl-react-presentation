@@ -12,7 +12,7 @@ const shaders = Shaders.create({
 precision highp float;
 varying vec2 uv;
 void main() {
-  gl_FragColor = vec4(0, 0, 1.0,0.5);
+  gl_FragColor = vec4(0.3, 0.5, 0.1,1.0);
 }
 `,
     // the main() function is called FOR EACH PIXELS

@@ -1,6 +1,5 @@
-declare module 'spectacle';
+// declare module 'spectacle';
 
-/*
 // Definitions by: Zachary Maybury <https://github.com/zmaybury>
 //                 Kylie Stewart <https://github.com/kale-stew>
 
@@ -8,9 +7,9 @@ declare module 'spectacle' {
   import * as CSS from 'csstype';
   import * as React from 'react';
 
-  /!**
+  /**
    * Alignment Types for Spectacle
-   *!/
+   */
   type alignType =
     | 'flex-start flex-start'
     | 'flex-start center'
@@ -22,9 +21,9 @@ declare module 'spectacle' {
     | 'flex-end center'
     | 'flex-end flex-end';
 
-  /!**
+  /**
    * Bullet Style Types for Spectacle
-   *!/
+   */
   type bulletStyleType =
     | 'arrow'
     | 'classicCheck'
@@ -32,9 +31,9 @@ declare module 'spectacle' {
     | 'greenCheck'
     | 'star';
 
-  /!**
+  /**
    * Animation Types for Spectacle
-   *!/
+   */
   type easeType =
     | 'back'
     | 'backIn'
@@ -77,35 +76,35 @@ declare module 'spectacle' {
     | 'sinOut'
     | 'sinInOut';
 
-  /!**
+  /**
    * Progress Types for Spectacle
-   *!/
+   */
   type progressType = 'pacman' | 'bar' | 'number' | 'none';
 
-  /!**
+  /**
    * S Types for StyledS in Spectacle
-   *!/
+   */
   type sType = 'italic' | 'bold' | 'line-through' | 'underline';
 
-  /!**
+  /**
    * Target Types for links
-   *!/
+   */
   type targetType = '_blank' | '_self' | '_parent' | '_top';
 
-  /!**
+  /**
    * Theme Types for CodePane in Spectacle
-   *!/
+   */
   type themeType = 'dark' | 'light' | 'external';
 
-  /!**
+  /**
    * Transition Types for Spectacle
-   *!/
+   */
   type transitionType = 'slide' | 'zoom' | 'fade' | 'spin';
 
-  /!**
+  /**
    * All available DOM style properties and their types
    * https://www.npmjs.com/package/csstype
-   *!/
+   */
   interface CSSProperties extends CSS.Properties<string | number> {}
 
   interface AnimProps {
@@ -129,9 +128,9 @@ declare module 'spectacle' {
     transitionDuration?: number;
   }
 
-  /!**
+  /**
    * Base props for many Spectacle components
-   *!/
+   */
   interface BaseProps {
     bgColor?: string;
     bgDarken?: number;
@@ -283,7 +282,11 @@ declare module 'spectacle' {
 
   class ComponentPlayground extends React.Component<ComponentPlaygroundProps> {}
 
-  class Deck extends React.Component<DeckProps> {}
+  class Deck extends React.Component<any> {}
+  class Box extends React.Component<any> {}
+  class FlexBox extends React.Component<any> {}
+  class FullScreen extends React.Component<any> {}
+  class Progress extends React.Component<any> {}
 
   class Fill extends React.Component<FillProps> {}
 
@@ -342,4 +345,3 @@ declare module 'spectacle/lib/themes/default' {
   const createTheme: (...args: object[]) => Theme;
   export default createTheme;
 }
-*/

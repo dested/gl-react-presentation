@@ -2,7 +2,7 @@ import {GLSL, LinearCopy, Node, Shaders, Uniform} from 'gl-react';
 import {Surface} from 'gl-react-dom';
 import raf from 'raf';
 import React, {Component, useEffect, useRef, VideoHTMLAttributes} from 'react';
-import bump from './bump2.png';
+import bump from './bump.png';
 
 const VideoContext = React.createContext<React.RefObject<HTMLVideoElement>>(null);
 
