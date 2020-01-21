@@ -3,6 +3,7 @@ import {Surface} from 'gl-react-dom';
 import React, {FC} from 'react';
 import {CodePane, Deck, Fill, Fit, Heading, List, ListItem, Quote, Slide, Text} from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
+import devil from './examples/devil.gif';
 import {ExampleBump} from './examples/exampleBump';
 import {ExampleBump2} from './examples/exampleBump2';
 import {ExampleImage} from './examples/exampleImage';
@@ -13,6 +14,7 @@ import {ExampleVideo, Video} from './examples/exampleVideo';
 import {ExampleVideoFast} from './examples/exampleVideoFast';
 import {ExampleVideoSlow} from './examples/exampleVideoSlow';
 import {ExampleWebcam} from './examples/exampleWebcam';
+import {ExampleWebcamSplit} from './examples/exampleWebcamSplit';
 import image from './examples/image.png';
 import question from './examples/question.gif';
 import {Simple} from './examples/simple';
@@ -465,7 +467,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={0} />
+          <ExampleImage demo={0} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -488,7 +490,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={0} />
+          <ExampleImage demo={0} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -497,7 +499,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={2} />
+          <ExampleImage demo={2} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -506,7 +508,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={1} />
+          <ExampleImage demo={1} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -515,7 +517,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={3} />
+          <ExampleImage demo={3} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -526,7 +528,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={4} />
+          <ExampleImage demo={4} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -537,7 +539,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleImage fancy={5} />
+          <ExampleImage demo={5} />
           <CodePane
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
@@ -637,30 +639,245 @@ gl_FragColor = vec4(
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleVideoFast />
+          <ExampleVideoFast demo={0} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`varying vec2 uv;
+uniform sampler2D texture;
+void main () {
+  gl_FragColor = texture2D(texture, uv);
+}`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleVideo />
+          <ExampleVideoFast demo={1} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`vec4 color = texture2D(texture, uv);
+gl_FragColor = vec4(1.0 - color.x, 1.0 - color.y, 1.0 - color.z, 1.0);
+`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          foreach each frame render
+          <div className={'row'}>
+            <ExampleVideo demo={0} />
+            <div style={{marginLeft: 10}}>
+              <CodePane
+                lang={'c'}
+                style={{fontSize: 30, minWidth: 1000}}
+                contentEditable={false}
+                source={`float y = uv.y * 3.0;
+vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+gl_FragColor = vec4(
+  c.r * step(2.0, y) * step(y, 3.0),
+  c.g * step(1.0, y) * step(y, 2.0),
+  c.b * step(0.0, y) * step(y, 1.0),
+  1.0);
+`}
+              />
+              <CodePane
+                lang={'jsx'}
+                style={{fontSize: 30, minWidth: 1000, marginTop: 10}}
+                contentEditable={false}
+                source={`<Surface width={426} height={240*3} pixelRatio={1}>
+...
+</Surface>`}
+              />
+            </div>
+          </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          pass that into this shader
+          <div className={'row'}>
+            <ExampleVideo demo={1} />
+            <CodePane
+              lang={'c'}
+              style={{fontSize: 30, minWidth: 1000}}
+              contentEditable={false}
+              source={`float y = uv.y * 3.0; //0 3 6 9
+float y = mod(y, 1.0); // 0 1 2 3
+vec4 c = texture2D(texture, vec2(uv.x, y)); // sample x,y
+gl_FragColor = vec4(
+  c.r,
+  c.g,
+  c.b,
+  1.0); // draw color at canvas position
+`}
+            />
+          </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          blam
-          <ExampleVideo />
+          <div className={'row'}>
+            <ExampleVideo demo={2} />
+            <div style={{marginLeft: 10}}>
+              <CodePane
+                lang={'c'}
+                style={{fontSize: 25, minWidth: 1000}}
+                contentEditable={false}
+                source={`float r=0.0;
+float g=0.0;
+if(y > 2.0 && y < 3.0){
+    r = c.r;
+} else {
+    r = 0.0;
+}
+if(y > 1.0 && y < 2.0){
+    g = c.g;
+} else {
+    g = 0.0;
+}
+
+gl_FragColor = vec4(
+                      r,
+                      g,
+                      c.b * step(0.0, y) * step(y, 1.0),
+                      1.0
+                   );
+`}
+              />
+            </div>
+          </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          lets invert the colors
-          <ExampleVideo />
+          <Heading textColor={'primary'}>If statements are the devil</Heading>
+          <img src={devil} height={400} />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          now that we can do it with a video, lets do it with the webcam, which is just a source
+          <Heading textColor={'primary'}>step(edge, value)</Heading>
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10, minWidth: 1000}}
+            contentEditable={false}
+            source={`
+//  below 2.0 is zero      above 3.0 is zero
+                V                 V
+r = c.r * step(2.0, y) * step(y, 3.0)
+`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <ExampleWebcam />
+          <div className={'row'}>
+            <ExampleVideo demo={0} />
+            <div style={{marginLeft: 10}}>
+              <CodePane
+                lang={'c'}
+                style={{fontSize: 30, minWidth: 1000}}
+                contentEditable={false}
+                source={`float y = uv.y * 3.0;
+vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+gl_FragColor = vec4(
+  c.r * step(2.0, y) * step(y, 3.0),
+  c.g * step(1.0, y) * step(y, 2.0),
+  c.b * step(0.0, y) * step(y, 1.0),
+  1.0);
+`}
+              />
+            </div>
+          </div>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <div className={'row'}>
+            <ExampleVideo demo={3} />
+            <div style={{marginLeft: 10}}>
+              <CodePane
+                lang={'c'}
+                style={{fontSize: 20, minWidth: 1000}}
+                contentEditable={false}
+                source={`vec3 pixel_color;
+float u_resolution = 1000.0;  
+pixel_color += -1.0 * texture2D(children, uv + vec2(-1, -1) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(-1, 0) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(-1, 1) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(0, -1) / u_resolution).rgb;
+pixel_color += 8.0 * texture2D(children, uv + vec2(0, 0) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(0, 1) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(1, -1) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(1, 0) / u_resolution).rgb;
+pixel_color += -1.0 * texture2D(children, uv + vec2(1, 1) / u_resolution).rgb;
+
+// Use the most extreme color value
+float min_value = min(pixel_color.r, min(pixel_color.g, pixel_color.b));
+float max_value = max(pixel_color.r, max(pixel_color.g, pixel_color.b));
+
+if (abs(min_value) > abs(max_value)) {
+    pixel_color = vec3(min_value);
+} else {
+    pixel_color = vec3(max_value);
+}
+
+// Rescale the pixel color using the mouse y position 
+gl_FragColor = vec4(5.0*pixel_color, 1.0);`}
+              />
+            </div>
+          </div>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>What else?</Heading>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Isn't WebCam just a video source?</Heading>
+          <Heading textColor={'primary'} textSize={'20px'}>
+            (not really but sorta)
+          </Heading>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleWebcam demo={0} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, minWidth: 0}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(t, vec2(uv.x, uv.y))`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleWebcam demo={1} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, minWidth: 1200}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(t, vec2(uv.x, 1.0 - uv.y))`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleWebcam demo={2} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, minWidth: 1200}}
+            contentEditable={false}
+            source={`vec4 c = texture2D(t, vec2(uv.x, uv.y));
+gl_FragColor = vec4(
+                  1.0-c.r,
+                  1.0-c.g,
+                  1.0-c.b,
+                  1.0
+               );`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleWebcamSplit />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, minWidth: 1200}}
+            contentEditable={false}
+            source={`uniform float mouseX;
+void main () { 
+    vec4 c = texture2D(t, uv);
+    if (uv.x > mouseX){
+        gl_FragColor = vec4(c.r,c.g,c.b,1.0);
+    } else {
+        gl_FragColor = vec4(1.0-c.r,1.0-c.g,1.0-c.b,1.0);
+    }
+}`}
+          /><CodePane
+            lang={'jsx'}
+            style={{fontSize: 30, minWidth: 1200}}
+            contentEditable={false}
+            source={`const position = useMousePosition(surface);
+{mouseX: position.x / canvasWidth}`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           what other cool things can we do. we can create a custom texture map

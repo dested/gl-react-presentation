@@ -54,33 +54,27 @@ export const WebCamSource = () => (
 );
 
 const shaders = Shaders.create({
-  Persistence: {
-    // language=GLSL
-    frag: GLSL`
-        precision highp float;
-        varying vec2 uv;
-        uniform sampler2D t, back;
-        uniform float persistence;
-        void main () {
-            gl_FragColor = vec4(mix(
-            texture2D(t, uv),
-            texture2D(back, uv+vec2(0.0, 0.005)),
-            persistence
-            ).rgb, 1.0);
-        }`,
-  },
-  Persistence2: {
+  regular: {
     // language=GLSL
     frag: GLSL`
         precision highp float;
         varying vec2 uv;
         uniform sampler2D t;
         void main () {
-            vec4 c = texture2D(t, vec2(uv.x, 1.0-uv.y));
-            gl_FragColor = c;
+            gl_FragColor = texture2D(t, vec2(uv.x, uv.y));
         }`,
   },
-  Negative: {
+  invert: {
+    // language=GLSL
+    frag: GLSL`
+        precision highp float;
+        varying vec2 uv;
+        uniform sampler2D t;
+        void main () {
+            gl_FragColor = texture2D(t, vec2(uv.x, 1.0-uv.y));
+        }`,
+  },
+  negative: {
     // language=GLSL
     frag: GLSL`
 precision highp float;
@@ -97,28 +91,35 @@ void main () {
   },
 });
 
-const Persistence = ({
-  children,
-  persistence,
-}: {
-  children: (redraw: (time: number) => void) => void;
-  persistence: number;
-}) => <Node shader={shaders.Negative} backbuffering uniforms={{t: children, back: Uniform.Backbuffer, persistence}} />;
-
-export class ExampleWebcam extends Component<{persistence: number}> {
+export class ExampleWebcam extends Component<{demo: number}> {
   render() {
-    const {persistence} = this.props;
+    const {demo} = this.props;
+
+    let shader: any;
+    switch (demo) {
+      case 0:
+        shader = shaders.regular;
+        break;
+      case 1:
+        shader = shaders.invert;
+        break;
+      case 2:
+        shader = shaders.negative;
+        break;
+    }
+
     return (
       <Surface width={400} height={300}>
-        <LinearCopy>
-          <Persistence persistence={persistence}>
-            {redraw => (
+        <Node
+          shader={shader}
+          uniforms={{
+            t: (redraw: any) => (
               <Video onFrame={redraw} autoPlay>
                 <WebCamSource />
               </Video>
-            )}
-          </Persistence>
-        </LinearCopy>
+            ),
+          }}
+        />
       </Surface>
     );
   }

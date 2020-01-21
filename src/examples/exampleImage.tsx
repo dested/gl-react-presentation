@@ -71,9 +71,9 @@ void main() {
   },
 });
 
-export const ExampleImage: FC<{fancy: number}> = ({fancy}) => {
+export const ExampleImage: FC<{demo: number}> = ({demo}) => {
   let shader: any;
-  switch (fancy) {
+  switch (demo) {
     case 0:
       shader = shaders.simpleTexture;
       break;
