@@ -23,10 +23,13 @@ import fun1 from './examples/fun1.webp';
 import fun2 from './examples/fun2.gif';
 import getout from './examples/getout.gif';
 import image from './examples/image.png';
+import magic from './examples/magic.gif';
 import me from './examples/me.png';
+import builtin from './examples/builtin.png';
 import noonecares from './examples/noonecares.gif';
 import orIsIt from './examples/orisit.gif';
 import question from './examples/question.gif';
+import react from './examples/react.jpg';
 import regex from './examples/regex.png';
 import relief from './examples/relief.webp';
 import {Simple} from './examples/simple';
@@ -132,25 +135,8 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Lightning fast GPU powered pixel manipulation</H>
+          <H>Lightning fast GPU powered pixel manipulation using Fragment Shaders</H>
         </Slide>
-        <Slide bgColor={'back'}>
-          <H textSize={'40px'}>Powered By:</H>
-          <H>gl-react</H>
-          <br />
-          <br />
-          <br />
-          <H textSize={'50px'}>gl-react-dom</H>
-          <H textSize={'50px'}>gl-react-native</H>
-          <H textSize={'50px'}>gl-react-headless</H>
-        </Slide>
-
-        <Slide bgColor={'back'}>
-          <Quote style={{fontSize: '70px'}}>
-            gl-react is a React library to write and compose WebGL fragment shaders.
-          </Quote>
-        </Slide>
-
         <Slide bgColor={'back'}>
           <H>So what can fragment shaders do?</H>
         </Slide>
@@ -238,10 +224,10 @@ void main() {
               Block of code
             </ListItem>
             <ListItem textSize={'70px'} bold textColor={'primary'}>
-              C like syntax
+              Runs on GPU
             </ListItem>
             <ListItem textSize={'70px'} bold textColor={'primary'}>
-              Runs on GPU
+              C like syntax
             </ListItem>
             <ListItem textSize={'70px'} bold textColor={'primary'}>
               Runs for every pixel
@@ -301,10 +287,27 @@ void main() {
           <img src={noonecares} width={400} />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>gl-react</H>
+          <H>What about react?</H>
+          <img src={react} />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Declarative WebGL</H>
+          <H>gl-react</H>
+          <br />
+          <br />
+          <br />
+          <H textSize={'50px'}>gl-react-dom</H>
+          <H textSize={'50px'}>gl-react-native</H>
+          <H textSize={'50px'}>gl-react-headless</H>
+        </Slide>
+
+        <Slide bgColor={'back'}>
+          <Quote style={{fontSize: '70px'}}>
+            gl-react is a React library to write and compose WebGL <i>fragment shaders</i>.
+          </Quote>
+        </Slide>
+
+        <Slide bgColor={'back'}>
+          <H>gl-react is declarative webGL</H>
           <div className={'row'}>
             <CodePane
               lang={'jsx'}
@@ -540,6 +543,9 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'}>
+          <H>What else can we do?</H>
+        </Slide>
+        <Slide bgColor={'back'}>
           <ExampleImage demo={2} />
           <CodePane
             lang={'c'}
@@ -554,7 +560,12 @@ void main() {
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
-            source={`gl_FragColor = texture2D(texture, vec2( mod( uv.x * 5.0 , 1.0), uv.y));`}
+            source={`gl_FragColor = texture2D(texture, 
+                         vec2(
+                             mod( uv.x * 5.0 , 1.0), 
+                             uv.y
+                             )
+                         );`}
           />
         </Slide>
         <Slide bgColor={'back'}>
@@ -563,7 +574,12 @@ void main() {
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
-            source={`gl_FragColor = texture2D(texture, vec2( mod( uv.x * 5.0 , 1.0), 1.0 - uv.y));`}
+            source={`gl_FragColor = texture2D(texture, 
+                         vec2(
+                             mod( uv.x * 5.0 , 1.0), 
+                             1.0 - uv.y
+                             )
+                         );`}
           />
         </Slide>
         <Slide bgColor={'back'}>
@@ -583,6 +599,21 @@ gl_FragColor = vec4(sample.r, sample.g, sample.b, sample.a);`}
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
             source={`vec4 sample = texture2D(texture, uv);
+gl_FragColor = vec4( 
+                (sample.r + uv.x) * sample.a,
+                (sample.g + uv.y) * sample.a, 
+                sample.b,
+                sample.a
+               )`}
+          />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <ExampleImage demo={6} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`vec4 sample = texture2D(texture, vec2(uv.x, 1.0 - uv.y));
 gl_FragColor = vec4( 
                 (sample.r + uv.x) * sample.a,
                 (sample.g + uv.y) * sample.a, 
@@ -624,6 +655,7 @@ gl_FragColor = vec4(
           />
         </Slide>
         <Slide bgColor={'back'}>
+          <H>WebGL Video Rendering In All Its Glory</H>
           <ExampleVideoSlow />
         </Slide>
         <Slide bgColor={'back'}>
@@ -701,9 +733,9 @@ gl_FragColor = vec4(
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
             source={`varying vec2 uv;
-uniform sampler2D texture;
+uniform sampler2D video;
 void main () {
-  gl_FragColor = texture2D(texture, uv);
+  gl_FragColor = texture2D(video, uv);
 }`}
           />
         </Slide>
@@ -716,7 +748,7 @@ void main () {
             lang={'c'}
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
-            source={`vec4 color = texture2D(texture, uv);
+            source={`vec4 color = texture2D(video, uv);
 gl_FragColor = vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, 1.0);`}
           />
         </Slide>
@@ -729,7 +761,7 @@ gl_FragColor = vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, 1.0);`}
                 style={{fontSize: 30, minWidth: 1000}}
                 contentEditable={false}
                 source={`float y = uv.y * 3.0;
-vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+vec4 c = texture2D(video, vec2(uv.x, mod(y, 1.0)));
 gl_FragColor = vec4(
   c.r * step(2.0, y) * step(y, 3.0),
   c.g * step(1.0, y) * step(y, 2.0),
@@ -764,7 +796,7 @@ gl_FragColor = vec4(
                 style={{fontSize: 30, minWidth: 1000}}
                 contentEditable={false}
                 source={`float y = uv.y * 3.0;
-vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+vec4 c = texture2D(video, vec2(uv.x, mod(y, 1.0)));
 gl_FragColor = vec4(
   c.r * step(2.0, y) * step(y, 3.0),
   c.g * step(1.0, y) * step(y, 2.0),
@@ -776,6 +808,10 @@ gl_FragColor = vec4(
           </div>
         </Slide>
         <Slide bgColor={'back'}>
+          <H>Magic</H>
+          <img src={magic} width={700} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
           <div className={'row'}>
             <ExampleVideo demo={1} />
             <CodePane
@@ -784,7 +820,7 @@ gl_FragColor = vec4(
               contentEditable={false}
               source={`float y = uv.y * 3.0; //0 3 6 9
 float y = mod(y, 1.0); // 0 1 2 3
-vec4 c = texture2D(texture, vec2(uv.x, y)); // sample x,y
+vec4 c = texture2D(video, vec2(uv.x, y)); // sample x,y
 gl_FragColor = vec4(
   c.r,
   c.g,
@@ -831,6 +867,10 @@ gl_FragColor = vec4(
           <img src={devil} height={400} />
         </Slide>
         <Slide bgColor={'back'}>
+          <H>Built In Functions</H>
+          <img src={builtin} width={200} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
           <H>step(edge, value)</H>
           <CodePane
             lang={'c'}
@@ -852,7 +892,7 @@ r = c.r * step(2.0, y) * step(y, 3.0)
                 style={{fontSize: 30, minWidth: 1000}}
                 contentEditable={false}
                 source={`float y = uv.y * 3.0;
-vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+vec4 c = texture2D(video, vec2(uv.x, mod(y, 1.0)));
 gl_FragColor = vec4(
   c.r * step(2.0, y) * step(y, 3.0),
   c.g * step(1.0, y) * step(y, 2.0),

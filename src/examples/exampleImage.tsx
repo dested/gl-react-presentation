@@ -68,6 +68,17 @@ void main() {
   gl_FragColor = vec4( (sample.r+uv.x) * sample.a, (sample.g+uv.y) * sample.a, sample.b, sample.a);
 }`,
   },
+  funnyColors3Texture: {
+    frag: GLSL`
+precision highp float;
+uniform sampler2D texture;
+varying vec2 uv;
+            
+void main() {
+  vec4 sample = texture2D(texture, vec2(uv.x, 1.0 - uv.y));
+  gl_FragColor = vec4( (sample.r+uv.x) * sample.a, (sample.g+uv.y) * sample.a, sample.b, sample.a);
+}`,
+  },
 });
 
 export const ExampleImage: FC<{demo: number}> = ({demo}) => {
@@ -90,6 +101,9 @@ export const ExampleImage: FC<{demo: number}> = ({demo}) => {
       break;
     case 5:
       shader = shaders.funnyColors2Texture;
+      break;
+    case 6:
+      shader = shaders.funnyColors3Texture;
       break;
   }
   return (
