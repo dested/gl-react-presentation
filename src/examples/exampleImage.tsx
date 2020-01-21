@@ -26,6 +26,16 @@ void main() {
   gl_FragColor = texture2D(texture, vec2(mod(uv.x*5.0,1.0), uv.y));
 }`,
   },
+  funnyTexture2: {
+    frag: GLSL`
+precision highp float;
+uniform sampler2D texture;
+varying vec2 uv;
+            
+void main() {
+  gl_FragColor = texture2D(texture, vec2(mod(uv.x*5.0,1.0), 1.0-uv.y));
+}`,
+  },
   invertYTexture: {
     frag: GLSL`
 precision highp float;
@@ -68,6 +78,9 @@ export const ExampleImage: FC<{demo: number}> = ({demo}) => {
       break;
     case 1:
       shader = shaders.funnyTexture;
+      break;
+    case 10:
+      shader = shaders.funnyTexture2;
       break;
     case 2:
       shader = shaders.invertYTexture;

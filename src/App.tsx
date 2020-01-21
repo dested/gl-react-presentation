@@ -21,14 +21,17 @@ import {ExampleWebcam} from './examples/exampleWebcam';
 import {ExampleWebcamSplit} from './examples/exampleWebcamSplit';
 import fun1 from './examples/fun1.webp';
 import fun2 from './examples/fun2.gif';
+import getout from './examples/getout.gif';
 import image from './examples/image.png';
 import me from './examples/me.png';
+import noonecares from './examples/noonecares.gif';
 import orIsIt from './examples/orisit.gif';
 import question from './examples/question.gif';
 import regex from './examples/regex.png';
 import relief from './examples/relief.webp';
 import {Simple} from './examples/simple';
 import thanks from './examples/thanks.webp';
+import toomuch from './examples/toomuch.gif';
 import videoMP4 from './examples/video.mp4';
 
 const theme = createTheme(
@@ -65,7 +68,7 @@ const App: React.FC = () => {
           </H>
         </Slide>
         <Slide bgColor={'back'}>
-          <img src={me} height={800} style={{marginLeft:-100,marginTop:-100}} />
+          <img src={me} height={800} style={{marginLeft: -100, marginTop: -100}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>So what is this WebGL I keep hearing about?</H>
@@ -80,33 +83,39 @@ const App: React.FC = () => {
         </Slide>
         <Slide bgColor={'back'}>
           <H>This</H>
-          <iframe src={'https://webglsamples.org/aquarium/aquarium.html'} style={{width: '100%', height: '60vh'}} />
+          <iframe
+            src={'https://webglsamples.org/aquarium/aquarium.html'}
+            style={{border: 0, width: '100%', height: '60vh'}}
+          />
         </Slide>
         <Slide bgColor={'back'}>
           <H>And This</H>
-          <iframe src={'https://webglsamples.org/city/city.html'} style={{width: '100%', height: '60vh'}} />
+          <iframe src={'https://webglsamples.org/city/city.html'} style={{border: 0, width: '100%', height: '60vh'}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>And This!</H>
           <iframe
             src={'https://webglsamples.org/dynamic-cubemap/dynamic-cubemap.html'}
-            style={{width: '100%', height: '60vh'}}
+            style={{border: 0, width: '100%', height: '60vh'}}
           />
         </Slide>
         <Slide bgColor={'back'}>
           <H>And This!!</H>
-          <iframe src={'https://webglsamples.org/field/field.html'} style={{width: '100%', height: '60vh'}} />
+          <iframe
+            src={'https://webglsamples.org/field/field.html'}
+            style={{border: 0, width: '100%', height: '60vh'}}
+          />
         </Slide>
         <Slide bgColor={'back'}>
           <H>And Even This!!</H>
           <iframe
             src={'https://webglsamples.org/electroShock/application.html'}
-            style={{width: '100%', height: '60vh'}}
+            style={{border: 0, width: '100%', height: '60vh'}}
           />
         </Slide>
         <Slide bgColor={'back'}>
           <H>We're not going to be talking about any of that</H>
-          <img src={confused1} width={300} style={{marginTop: 20}} />
+          <img src={confused1} width={400} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>So what are we talking about?</H>
@@ -148,6 +157,7 @@ void main() {
         <Slide bgColor={'back'}>
           <H>This</H>
           <iframe
+            style={{border: 0}}
             width="800"
             height="500"
             frameBorder="0"
@@ -158,6 +168,7 @@ void main() {
         <Slide bgColor={'back'}>
           <H>And This</H>
           <iframe
+            style={{border: 0}}
             width="800"
             height="500"
             frameBorder="0"
@@ -168,6 +179,7 @@ void main() {
         <Slide bgColor={'back'}>
           <H>And This!!</H>
           <iframe
+            style={{border: 0}}
             width="800"
             height="500"
             frameBorder="0"
@@ -178,6 +190,7 @@ void main() {
         <Slide bgColor={'back'}>
           <H>And Even This!!</H>
           <iframe
+            style={{border: 0}}
             width="800"
             height="500"
             frameBorder="0"
@@ -187,7 +200,7 @@ void main() {
         </Slide>
         <Slide bgColor={'back'}>
           <H>We're not going to be talking about any of that</H>
-          <img src={confused1} width={300} style={{marginTop: 20}} />
+          <img src={confused2} width={400} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>So what are we talking about?</H>
@@ -204,7 +217,7 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Lightning fast GPU powered pixel manipulation</H>
+          <H>Lightning fast GPU powered pixel manipulation using fragment shaders</H>
         </Slide>
         <Slide bgColor={'back'}>
           <H>What exactly is a fragment shader</H>
@@ -284,6 +297,10 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'}>
+          <H>WebGL is cool right?</H>
+          <img src={noonecares} width={400} />
+        </Slide>
+        <Slide bgColor={'back'}>
           <H>gl-react</H>
         </Slide>
         <Slide bgColor={'back'}>
@@ -343,7 +360,7 @@ void main() {
         </Slide>
 
         <Slide bgColor={'back'}>
-          <div className={'row'}>
+          <div className={'row'} style={{marginTop: -100}}>
             <ExampleSlider />
             <CodePane
               lang={'jsx'}
@@ -370,8 +387,8 @@ const [green, setGreen] = useState(0.8);
           </div>
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Let's have fun</H>
-          <img src={fun1} width={300} style={{marginTop: 20}} />
+          <H>Let's have fun with animations</H>
+          <img src={fun1} width={400} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <CodePane
@@ -404,7 +421,7 @@ const [green, setGreen] = useState(0.8);
           />
         </Slide>
         <Slide bgColor={'back'}>
-          <div className={'row'}>
+          <div className={'row'} style={{marginTop: -100}}>
             <ExamplePrettyBlue fancy={false} />
             <CodePane
               lang={'jsx'}
@@ -420,7 +437,7 @@ void main() {
   }
 });
 
-const time = useTimeLoop(60);
+const time = useTimeLoop();
 <Surface width={300} height={300}>
   <Node
     shader={shaders.simple}
@@ -431,7 +448,7 @@ const time = useTimeLoop(60);
           </div>
         </Slide>
         <Slide bgColor={'back'}>
-          <div className={'row'}>
+          <div className={'row'} style={{marginTop: -100}}>
             <ExamplePrettyBlue fancy={true} />
             <CodePane
               lang={'jsx'}
@@ -463,7 +480,7 @@ const time = useTimeLoop(60);
         </Slide>
         <Slide bgColor={'back'}>
           <H>Images!</H>
-          <img src={image} width={200} height={200} style={{marginTop: 20}} />
+          <img src={image} width={300} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <CodePane
@@ -507,7 +524,7 @@ void main() {
             source={`
 //   Color
 //  at pixel         Image  Position  
-//     V               V       V
+//     ↓              ↓      V
   vec4 c = texture2D(texture, uv);
   gl_FragColor = c;
 `}
@@ -538,6 +555,15 @@ void main() {
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
             source={`gl_FragColor = texture2D(texture, vec2( mod( uv.x * 5.0 , 1.0), uv.y));`}
+          />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <ExampleImage demo={10} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(texture, vec2( mod( uv.x * 5.0 , 1.0), 1.0 - uv.y));`}
           />
         </Slide>
         <Slide bgColor={'back'}>
@@ -575,8 +601,8 @@ gl_FragColor = vec4(
           </video>
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Native Support For Video!</H>
-          <img src={fun2} width={300} style={{marginTop: 20}} />
+          <H>gl-react has native support for video!</H>
+          <img src={fun2} width={500} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <video autoPlay loop width={1024 / 3} height={720 / 3} muted>
@@ -588,7 +614,7 @@ gl_FragColor = vec4(
             contentEditable={false}
             source={`import videoMP4 from './video.mp4';
 
-<Surface width={videoWidth} height={videoHeight} pixelRatio={1}>
+<Surface width={videoWidth} height={videoHeight}>
   <Node shader={shaders.video} uniforms={{ texture: (redraw) => 
     <video onTimeUpdate={redraw} autoPlay loop>
       <source type="video/mp4" src={videoMP4} />
@@ -657,13 +683,15 @@ gl_FragColor = vec4(
             contentEditable={false}
             source={`import videoMP4 from './video.mp4';
 
-<Surface width={videoWidth} height={videoHeight} pixelRatio={1}>
-  <Node shader={shaders.video} uniforms={{ texture: (redraw) => 
-    <Video onFrame={redraw} autoPlay loop>
-      <source type="video/mp4" src={videoMP4} />
-    </Video>
-  }} />
-</Surface>`}
+  <Surface width={videoWidth} height={videoHeight}>
+    <Node shader={shaders.video} uniforms={{ texture: (redraw) => 
+{/* Capital V       */}
+{/*    ↓            */}
+      <Video onFrame={redraw} autoPlay loop>
+        <source type="video/mp4" src={videoMP4} />
+      </Video>
+    }} />
+  </Surface>`}
           />
         </Slide>
         <Slide bgColor={'back'}>
@@ -722,10 +750,37 @@ gl_FragColor = vec4(
         </Slide>
         <Slide bgColor={'back'}>
           <div className={'row'}>
+            <div style={{marginLeft: 10}}>
+              <CodePane
+                lang={'jsx'}
+                style={{fontSize: 30, minWidth: 1000, marginBottom: 10}}
+                contentEditable={false}
+                source={`<Surface width={videoWidth} height={videoHeight*3}>
+...
+</Surface>`}
+              />
+              <CodePane
+                lang={'c'}
+                style={{fontSize: 30, minWidth: 1000}}
+                contentEditable={false}
+                source={`float y = uv.y * 3.0;
+vec4 c = texture2D(texture, vec2(uv.x, mod(y, 1.0)));
+gl_FragColor = vec4(
+  c.r * step(2.0, y) * step(y, 3.0),
+  c.g * step(1.0, y) * step(y, 2.0),
+  c.b * step(0.0, y) * step(y, 1.0),
+  1.0);
+`}
+              />
+            </div>
+          </div>
+        </Slide>
+        <Slide bgColor={'back'}>
+          <div className={'row'}>
             <ExampleVideo demo={1} />
             <CodePane
               lang={'c'}
-              style={{fontSize: 30, minWidth: 1000}}
+              style={{fontSize: 30, minWidth: 1100}}
               contentEditable={false}
               source={`float y = uv.y * 3.0; //0 3 6 9
 float y = mod(y, 1.0); // 0 1 2 3
@@ -749,12 +804,12 @@ gl_FragColor = vec4(
                 contentEditable={false}
                 source={`float r=0.0;
 float g=0.0;
-if(y > 2.0 && y < 3.0){
+if (y > 2.0 && y < 3.0){
     r = c.r;
 } else {
     r = 0.0;
 }
-if(y > 1.0 && y < 2.0){
+if (y > 1.0 && y < 2.0){
     g = c.g;
 } else {
     g = 0.0;
@@ -783,7 +838,7 @@ gl_FragColor = vec4(
             contentEditable={false}
             source={`
 //  below 2.0 is zero      above 3.0 is zero
-                V                 V
+                ↓                ↓
 r = c.r * step(2.0, y) * step(y, 3.0)
 `}
           />
@@ -878,7 +933,7 @@ gl_FragColor = vec4(5.0*pixel_color, 1.0);`}
             lang={'c'}
             style={{fontSize: 30, minWidth: 1200}}
             contentEditable={false}
-            source={`vec4 c = texture2D(t, vec2(uv.x, uv.y));
+            source={`vec4 c = texture2D(t, uv);
 gl_FragColor = vec4(
                   1.0-c.r,
                   1.0-c.g,
@@ -896,6 +951,7 @@ gl_FragColor = vec4(
             source={`uniform float mouseX;
 void main () { 
     vec4 c = texture2D(t, uv);
+    // if statements are the devil
     if (uv.x > mouseX){
         gl_FragColor = vec4(c.r,c.g,c.b,1.0);
     } else {
@@ -952,6 +1008,9 @@ void main () {
           </div>
         </Slide>
         <Slide bgColor={'back'}>
+          <H>What can we do with that?</H>
+        </Slide>
+        <Slide bgColor={'back'}>
           <ExampleBump />
           <CodePane
             lang={'c'}
@@ -987,12 +1046,29 @@ void main () {
           />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>WebGL is a lot like Regex</H>
+          <H>Shaders is a lot like Regex</H>
           <img src={regex} height={300} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <H>
+            No one writes them, everyone just <span style={{textDecoration: 'line-through'}}>steals</span>borrows them{' '}
+          </H>
+          <img src={regex} height={300} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <H>I know that was a lot</H>
+          <img src={toomuch} height={300} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>But hopefully now you're less scared</H>
           <img src={relief} height={300} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <H>
+            So get out there and start <span style={{textDecoration: 'line-through'}}>stealing</span>borrowing shaders
+            in your project today!
+          </H>
+          <img src={getout} height={300} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
           <H>Thanks!</H>
