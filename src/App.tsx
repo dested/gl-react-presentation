@@ -3,6 +3,7 @@ import {Surface} from 'gl-react-dom';
 import React, {FC} from 'react';
 import {CodePane, Deck, Fill, Fit, Heading, List, ListItem, Quote, Slide, Text} from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
+import builtin from './examples/builtin.png';
 import bump from './examples/bump.png';
 import bumpDetails from './examples/bumpDetails.png';
 import confused1 from './examples/confused1.gif';
@@ -19,13 +20,13 @@ import {ExampleVideoFast} from './examples/exampleVideoFast';
 import {ExampleVideoSlow} from './examples/exampleVideoSlow';
 import {ExampleWebcam} from './examples/exampleWebcam';
 import {ExampleWebcamSplit} from './examples/exampleWebcamSplit';
+import explode from './examples/explode.gif';
 import fun1 from './examples/fun1.webp';
 import fun2 from './examples/fun2.gif';
 import getout from './examples/getout.gif';
 import image from './examples/image.png';
 import magic from './examples/magic.gif';
 import me from './examples/me.png';
-import builtin from './examples/builtin.png';
 import noonecares from './examples/noonecares.gif';
 import orIsIt from './examples/orisit.gif';
 import question from './examples/question.gif';
@@ -36,6 +37,7 @@ import {Simple} from './examples/simple';
 import thanks from './examples/thanks.webp';
 import toomuch from './examples/toomuch.gif';
 import videoMP4 from './examples/video.mp4';
+import where from './examples/where.gif';
 
 const theme = createTheme(
   {
@@ -78,7 +80,8 @@ const App: React.FC = () => {
         </Slide>
         <Slide bgColor={'back'}>
           <Quote style={{fontSize: '60px'}}>
-            WebGL is a cross-platform, royalty-free web standard for a low-level 3D graphics API based on OpenGL ES 2.0
+            WebGL is a cross-platform, royalty-free web standard for a low-level 3D graphics API based on OpenGL ES
+            2.0o̵̖͇̟̟n̠͈̝͖̼̺̤ ͈͕̤O̖̥̖̮̺̺p̛̘e̝̤̦̟̟n̵̝̮̦͉̙͕̥G̵̙͈̱͖̫L͈̬͉̼͎̫ ̢̮̭̹̜E͜S̞̱͚ͅ,̘̦̟ e͎̫̥̳̖͎̖x̴͍͓̺p̫͖̺o̶̯s̼̞̩e̜̩̥̝͇̝̝d̴ ̯̳̼̼͇t͏̗̘̮̺o͖̭͙͎̠͎̪ ̰̮̺̮̯͈ͅE̷͔̜͓̼C̳̳̣M̶͉͙͙̳̥̗ͅA̝̪S̼̗c̴̞̟̩̩͇̼ͅr̻͟i̩̻̫̬͚p̷̱̻t̝̠͖͘ ̸̼̪v̛ia̭͝ ̭̠̗̭̙t̟̳ͅh̦̱̦͎̦̦e̠̩ H̟̕T̤̭̺̪̻M̨̫͓̲L̥̼̪̲5 ̮̞̺̹͡C̷̜̠̹̯͈a̰̥̕n̫v͎̪̝̭̺̼͢a̠͈̳s̰̦̠ ̛̻e̝̭̝̞̥̻l͏eḿȩ̰̭͇͈̣n̼̼͓͘ͅt̪̝.̼̗̠̦̣͔ ̮͙͔͎̩D͟ev͠e̷̪̲̞l̝̝̱̥̳̟͍o̬̭͇pe̷̙͖̮r͎̠͈͖̗ş̣̬̫̩ ͏̘͍̫̥̘̹f̮̺͓͙̩̲͇a̡̤ṃ̨͙̗̝̦i̮̩̥l̥͇̝i̹a̢̲̙̹̲̪̞r͔ ̦̭͙̱͜w̘̥͇̩̻͓̖͘i̹t̫͎̺͠h̯̭̹ͅ
           </Quote>
         </Slide>
         <Slide bgColor={'back'}>
@@ -302,7 +305,7 @@ void main() {
 
         <Slide bgColor={'back'}>
           <Quote style={{fontSize: '70px'}}>
-            gl-react is a React library to write and compose WebGL <i>fragment shaders</i>.
+            gl-react is a React library used to write and compose WebGL <i>fragment shaders</i>.
           </Quote>
         </Slide>
 
@@ -338,6 +341,10 @@ void main() {
           </div>
         </Slide>
         <Slide bgColor={'back'}>
+          <H>Where's the real magic?</H>
+          <img src={where} style={{width: 500}} />
+        </Slide>
+        <Slide bgColor={'back'}>
           <H>Variables</H>
           <CodePane
             lang={'c'}
@@ -361,7 +368,9 @@ void main() {
 </Surface>`}
           />
         </Slide>
-
+        <Slide bgColor={'back'}>
+          <img src={explode} style={{width: 500}} />
+        </Slide>
         <Slide bgColor={'back'}>
           <div className={'row'} style={{marginTop: -100}}>
             <ExampleSlider />
@@ -486,11 +495,12 @@ const time = useTimeLoop(60);
           <img src={image} width={300} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
-          <CodePane
-            lang={'c'}
-            style={{fontSize: 30}}
-            contentEditable={false}
-            source={`uniform sampler2D texture;
+          <div style={{marginTop: -100}}>
+            <CodePane
+              lang={'c'}
+              style={{fontSize: 30}}
+              contentEditable={false}
+              source={`uniform sampler2D texture;
 varying vec2 uv;
             
 void main() {
@@ -498,17 +508,18 @@ void main() {
   gl_FragColor = c;
 }
 `}
-          />
-          <CodePane
-            lang={'jsx'}
-            style={{fontSize: 30, marginTop: 10}}
-            contentEditable={false}
-            source={`import image from './image.png';
+            />
+            <CodePane
+              lang={'jsx'}
+              style={{fontSize: 30, marginTop: 10}}
+              contentEditable={false}
+              source={`import image from './image.png';
 
 <Surface width={300} height={300}>
     <Node shader={shaders.simpleTexture} uniforms={{texture: image}} />
 </Surface>`}
-          />
+            />
+          </div>
         </Slide>
         <Slide bgColor={'back'}>
           <ExampleImage demo={0} />
@@ -527,7 +538,7 @@ void main() {
             source={`
 //   Color
 //  at pixel         Image  Position  
-//     ↓              ↓      V
+//     ↓               ↓      ↓
   vec4 c = texture2D(texture, uv);
   gl_FragColor = c;
 `}
@@ -668,7 +679,7 @@ gl_FragColor = vec4(
             style={{fontSize: 30, marginTop: 10}}
             contentEditable={false}
             source={`//       Trash
-//         V
+//        ↓↓↓
 <video onTimeUpdate={redraw} autoPlay loop>
   <source type="video/mp4" src={videoMP4} />
 </video>`}
@@ -819,7 +830,7 @@ gl_FragColor = vec4(
               style={{fontSize: 30, minWidth: 1100}}
               contentEditable={false}
               source={`float y = uv.y * 3.0; //0 3 6 9
-float y = mod(y, 1.0); // 0 1 2 3
+y = mod(y, 1.0); // 0 1 2 3
 vec4 c = texture2D(video, vec2(uv.x, y)); // sample x,y
 gl_FragColor = vec4(
   c.r,
@@ -1081,12 +1092,12 @@ void main () {
 uniform sampler2D webcam, bump;
 void main () {
   vec4 intensity=texture2D(bump, uv);
-  gl_FragColor = texture2D(t, vec2( uv.x*intensity.r, uv.y+intensity.g ));
+  gl_FragColor = texture2D(t, vec2( uv.x*intensity.r, uv.y+intensity.r ));
 }`}
           />
         </Slide>
         <Slide bgColor={'back'}>
-          <H>Shaders is a lot like Regex</H>
+          <H>Shaders are a lot like Regex</H>
           <img src={regex} height={300} style={{marginTop: 20}} />
         </Slide>
         <Slide bgColor={'back'}>
@@ -1094,6 +1105,9 @@ void main () {
             No one writes them, everyone just <span style={{textDecoration: 'line-through'}}>steals</span>borrows them{' '}
           </H>
           <img src={regex} height={300} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'}>
+          <H>What else can we do?</H>
         </Slide>
         <Slide bgColor={'back'}>
           <H>I know that was a lot</H>
