@@ -44,18 +44,7 @@ varying vec2 uv;
             
 void main() {
   vec4 sample = texture2D(texture, uv);
-  gl_FragColor = vec4(sample.x, sample.y, sample.z, sample.w);
-}`,
-  },
-  funnyColors1Texture: {
-    frag: GLSL`
-precision highp float;
-uniform sampler2D texture;
-varying vec2 uv;
-            
-void main() {
-  vec4 sample = texture2D(texture, uv);
-  gl_FragColor = vec4(sample.x, sample.x, sample.x, sample.w);
+  gl_FragColor = vec4(sample.r, sample.g, sample.b, sample.a);
 }`,
   },
   funnyColors2Texture: {
@@ -66,7 +55,7 @@ varying vec2 uv;
             
 void main() {
   vec4 sample = texture2D(texture, uv);
-  gl_FragColor = vec4( (sample.x+uv.x) * sample.w, (sample.y+uv.y) * sample.w, sample.z, sample.w);
+  gl_FragColor = vec4( (sample.r+uv.x) * sample.a, (sample.g+uv.y) * sample.a, sample.b, sample.a);
 }`,
   },
 });
@@ -85,9 +74,6 @@ export const ExampleImage: FC<{demo: number}> = ({demo}) => {
       break;
     case 3:
       shader = shaders.colorsTexture;
-      break;
-    case 4:
-      shader = shaders.funnyColors1Texture;
       break;
     case 5:
       shader = shaders.funnyColors2Texture;
