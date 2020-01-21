@@ -4,9 +4,6 @@ import raf from 'raf';
 import React, {Component, VideoHTMLAttributes} from 'react';
 import videoMP4 from './video.mp4';
 
-// We implement a component <Video> that is like <video>
-// but provides a onFrame hook so we can efficiently only render
-// if when it effectively changes.
 export class Video extends Component<{onFrame: () => void} & VideoHTMLAttributes<HTMLVideoElement>> {
   private raf: number;
   private currentTime: number;
@@ -44,39 +41,30 @@ const shaders = Shaders.create({
     frag: GLSL`
 precision highp float;
 varying vec2 uv;
-uniform sampler2D children;
+uniform sampler2D texture;
 void main () {
-  float y = uv.y * 3.0;
-  vec4 c = texture2D(children, vec2(uv.x, mod(y, 1.0)));
-  gl_FragColor = vec4(
-    c.r * step(2.0, y) * step(y, 3.0),
-    c.g * step(1.0, y) * step(y, 2.0),
-    c.b * step(0.0, y) * step(y, 1.0),
-    1.0);
+  gl_FragColor = texture2D(texture, uv);
 }
 `,
   },
-  // ^NB perf: in fragment shader paradigm, we want to avoid code branch (if / for)
-  // and prefer use of built-in functions and just giving the GPU some computating.
-  // step(a,b) is an alternative to do if(): returns 1.0 if a<b, 0.0 otherwise.
 });
-const SplitColor = ({children}: {children: (redraw: () => void) => void}) => (
-  <Node shader={shaders.SplitColor} uniforms={{children}} />
-);
 
 // We now uses <Video> in our GL graph.
 // The texture we give to <SplitColor> is a (redraw)=><Video> function.
 // redraw is passed to Video onFrame event and Node gets redraw each video frame.
-export const ExampleVideo = () => (
+export const ExampleVideoFast = () => (
   <>
-    <Surface width={426} height={720} pixelRatio={1}>
-      <SplitColor>
-        {redraw => (
-          <Video onFrame={redraw} autoPlay loop>
-            <source type="video/mp4" src={videoMP4} />
-          </Video>
-        )}
-      </SplitColor>
+    <Surface width={426} height={240} pixelRatio={1}>
+      <Node
+        shader={shaders.SplitColor}
+        uniforms={{
+          texture: (redraw: any) => (
+            <Video onFrame={redraw} autoPlay loop>
+              <source type="video/mp4" src={videoMP4} />
+            </Video>
+          ),
+        }}
+      />
     </Surface>
   </>
 );

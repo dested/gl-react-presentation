@@ -15,7 +15,7 @@ void main() {
   },
 });
 
-export function Example2() {
+export function ExampleSlider() {
   const [green, setGreen] = useState(0.8);
   return (
     <div className={'col'}>

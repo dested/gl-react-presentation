@@ -1,16 +1,20 @@
 import {GLSL} from 'gl-react';
+import {Surface} from 'gl-react-dom';
 import React, {FC} from 'react';
-import {CodePane, Deck, Fill, Fit, Heading, Quote, Slide, Text} from 'spectacle';
+import {CodePane, Deck, Fill, Fit, Heading, List, ListItem, Quote, Slide, Text} from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
-import {Example0} from './examples/example0';
-import {Example1} from './examples/example1';
-import {Example2} from './examples/example2';
-import {Example3} from './examples/example3';
 import {ExampleBump} from './examples/exampleBump';
 import {ExampleBump2} from './examples/exampleBump2';
-import {ExampleVideo} from './examples/exampleVideo';
+import {ExampleImage} from './examples/exampleImage';
+import {ExamplePixelate} from './examples/examplePixelate';
+import {ExamplePrettyBlue} from './examples/examplePrettyBlue';
+import {ExampleSlider} from './examples/exampleSlider';
+import {ExampleVideo, Video} from './examples/exampleVideo';
+import {ExampleVideoFast} from './examples/exampleVideoFast';
+import {ExampleVideoSlow} from './examples/exampleVideoSlow';
 import {ExampleWebcam} from './examples/exampleWebcam';
-import {ExamplePixelate} from './examples/pixelate';
+import image from './examples/image.png';
+import question from './examples/question.gif';
 import {Simple} from './examples/simple';
 import videoMP4 from './examples/video.mp4';
 
@@ -29,7 +33,11 @@ const App: React.FC = () => {
   return (
     <>
       <div className={'footer'}>@dested</div>
-      <Deck autoplay={false} theme={theme} showFullscreenControl={false} contentWidth={'80vw'}>
+      <Deck
+        autoplay={false}
+        theme={theme}
+        showFullscreenControl={false}
+        contentWidth={((window.innerWidth * 0.8) as unknown) as string}>
         <Slide bgColor={'back'} textColor={'primary'}>
           <Heading textColor={'primary'}>WebGL In React (& Native)</Heading>
         </Slide>
@@ -81,48 +89,86 @@ const App: React.FC = () => {
           <Heading textColor={'primary'}>So what are we talking about?</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Example0 />
+          <Simple
+            shader={GLSL`
+precision highp float;
+varying vec2 uv;
+void main() {
+  gl_FragColor = vec4(uv.x, uv.y, 0.1,1.0);
+}
+`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <Heading textColor={'primary'}>Lightning fast GPU powered pixel manipulation</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'} textSize={'40px'}>
+            Powered By:
+          </Heading>
           <Heading textColor={'primary'}>gl-react</Heading>
+          <br />
+          <br />
+          <br />
+          <Heading textColor={'primary'} textSize={'50px'}>
+            gl-react-dom
+          </Heading>
+          <Heading textColor={'primary'} textSize={'50px'}>
+            gl-react-native
+          </Heading>
+          <Heading textColor={'primary'} textSize={'50px'}>
+            gl-react-headless
+          </Heading>
         </Slide>
+
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Quote style={{fontSize: '60px'}}>
+          <Quote style={{fontSize: '70px'}}>
             gl-react is a React library to write and compose WebGL fragment shaders.
           </Quote>
         </Slide>
+
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Heading textColor={'primary'}>gl-react-dom</Heading>
-          <Heading textColor={'primary'}>gl-react-native</Heading>
-          <Heading textColor={'primary'}>gl-react-headless</Heading>
+          <Heading textColor={'primary'}>So what can fragment shaders do?</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Heading textColor={'primary'}>Shader you say?</Heading>
+          <Heading textColor={'primary'}>This</Heading>
+          <iframe
+            width="800"
+            height="500"
+            frameBorder="0"
+            src="https://www.shadertoy.com/embed/WtfGDX?gui=true&t=10&paused=false&muted=false"
+            allowFullScreen
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Heading textColor={'primary'}>
-            <a style={{color: 'white'}} href={'https://www.shadertoy.com/view/WtfGDX'}>
-              This
-            </a>
-          </Heading>
-          <Heading textColor={'primary'}>
-            <a style={{color: 'white'}} href={'https://www.shadertoy.com/view/MsGczV'}>
-              And This
-            </a>
-          </Heading>
-          <Heading textColor={'primary'}>
-            <a style={{color: 'white'}} href={'https://www.shadertoy.com/view/XlcBRX'}>
-              And This!!
-            </a>
-          </Heading>
-          <Heading textColor={'primary'}>
-            <a style={{color: 'white'}} href={'https://www.shadertoy.com/view/Wly3zt'}>
-              And Even This!!
-            </a>
-          </Heading>
+          <Heading textColor={'primary'}>And This</Heading>
+          <iframe
+            width="800"
+            height="500"
+            frameBorder="0"
+            src="https://www.shadertoy.com/embed/MsGczV?gui=true&t=10&paused=false&muted=false"
+            allowFullScreen
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>And This!!</Heading>
+          <iframe
+            width="800"
+            height="500"
+            frameBorder="0"
+            src="https://www.shadertoy.com/embed/XlcBRX?gui=true&t=10&paused=false&muted=false"
+            allowFullScreen
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>And Even This!!</Heading>
+          <iframe
+            width="800"
+            height="500"
+            frameBorder="0"
+            src="https://www.shadertoy.com/embed/Wly3zt?gui=true&t=10&paused=false&muted=false"
+            allowFullScreen
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <Heading textColor={'primary'}>We're not going to be talking about any of that</Heading>
@@ -131,7 +177,15 @@ const App: React.FC = () => {
           <Heading textColor={'primary'}>So what are we talking about?</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Example0 />
+          <Simple
+            shader={GLSL`
+precision highp float;
+varying vec2 uv;
+void main() {
+  gl_FragColor = vec4(uv.x, uv.y, 0.1,1.0);
+}
+`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <Heading textColor={'primary'}>Lightning fast GPU powered pixel manipulation</Heading>
@@ -145,12 +199,25 @@ const App: React.FC = () => {
             style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`void main() {
-  gl_FragColor = vec4(1.0, 0.0, 0.0,1.0);
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }`}
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Heading textColor={'primary'}>A block of code that gets executed for EVERY PIXEL in the canvas</Heading>
+          <List textColor={'primary'}>
+            <ListItem textSize={'90px'} bold>
+              Block of code
+            </ListItem>
+            <ListItem textSize={'90px'} bold>
+              C like syntax
+            </ListItem>
+            <ListItem textSize={'90px'} bold>
+              Runs on GPU
+            </ListItem>
+            <ListItem textSize={'90px'} bold>
+              Runs for every pixel
+            </ListItem>
+          </List>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <CodePane
@@ -158,6 +225,7 @@ const App: React.FC = () => {
             style={{fontSize: 30, minWidth: 0}}
             contentEditable={false}
             source={`void main() {
+//                     R    G    B    A         
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }`}
           />
@@ -177,6 +245,7 @@ void main() {
             contentEditable={false}
             source={`varying vec2 uv;
 void main() {
+//                      R     G    B    A         
   gl_FragColor = vec4(uv.x, uv.y, 0.0, 1.0);
 }`}
           />
@@ -194,6 +263,7 @@ void main() {
           <Heading textColor={'primary'}>gl-react</Heading>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Declarative WebGL</Heading>
           <CodePane
             lang={'jsx'}
             style={{fontSize: 30, minWidth: 0}}
@@ -214,11 +284,45 @@ void main() {
           />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
-          <Example1 />
+          <Simple
+            shader={GLSL`precision highp float;
+varying vec2 uv;
+void main() {
+  gl_FragColor = vec4(0.0, 1.0, 0.0,1.0);
+}
+`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Variables</Heading>
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, minWidth: 0}}
+            contentEditable={false}
+            source={`uniform float green;
+            
+void main() {
+  gl_FragColor = vec4(0.0, green, 0.0, 1.0);
+}`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Variables</Heading>
+          <CodePane
+            lang={'jsx'}
+            style={{fontSize: 30, minWidth: 0}}
+            contentEditable={false}
+            source={`<Surface width={300} height={300}>
+  <Node 
+    shader={shaders.greenShader} 
+    uniforms={{green: greenValue}} 
+  />
+</Surface>`}
+          />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <div className={'row'}>
-            <Example2 />
+            <ExampleSlider />
             <CodePane
               lang={'jsx'}
               style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
@@ -244,8 +348,38 @@ const [green, setGreen] = useState(0.8);
           </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'js'}
+            style={{fontSize: 20, minWidth: 0}}
+            contentEditable={false}
+            source={`function useTimeLoop(refreshRate = 60): number {
+  const [time, setTime] = useState(0);
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    let startTime = 0, lastTime = 0;
+    const interval = 1000 / refreshRate;
+    lastTime = -interval;
+    const loop = (t) => {
+      requestAnimationFrame(loop);
+      if (!startTime) {
+        startTime = t;
+      }
+      if (t - lastTime > interval) {
+        lastTime = t;
+        setTime(t - startTime);
+        setTick(tick + 1);
+      }
+    };
+    requestAnimationFrame(loop);
+  }, [refreshRate]);
+
+  return time;
+}`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
           <div className={'row'}>
-            <Example3 fancy={false} />
+            <ExamplePrettyBlue fancy={false} />
             <CodePane
               lang={'jsx'}
               style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
@@ -272,15 +406,16 @@ const time = useTimeLoop(60);
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <div className={'row'}>
-            <Example3 fancy={true} />
+            <ExamplePrettyBlue fancy={true} />
             <CodePane
               lang={'jsx'}
               style={{fontSize: 30, minWidth: 0, maxWidth: 10000}}
               contentEditable={false}
               source={`let shaders = Shaders.create({
   fancy: {
-    frag: GLSL\`
-uniform float blue;
+    frag: GLSL\`uniform float blue;
+varying vec2 uv;
+
 void main() {
   gl_FragColor = vec4(uv.x, uv.y, blue, 1.0);
 }\`
@@ -298,21 +433,254 @@ const time = useTimeLoop(60);
           </div>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>What else can we pass in?</Heading>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Images!</Heading>
+          <img src={image} width={200} height={200} style={{marginTop: 20}} />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30}}
+            contentEditable={false}
+            source={`uniform sampler2D texture;
+varying vec2 uv;
+            
+void main() {
+  vec4 c = texture2D(texture, uv);
+  gl_FragColor = c;
+}
+`}
+          />
+          <CodePane
+            lang={'jsx'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`import image from './image.png';
+
+<Surface width={300} height={300}>
+    <Node shader={shaders.simpleTexture} uniforms={{texture: image}} />
+</Surface>`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={0} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(texture, uv);`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30}}
+            contentEditable={false}
+            source={`
+//   Color
+//  at pixel         Image  Position  
+//     V               V       V
+  vec4 c = texture2D(texture, uv);
+  gl_FragColor = c;
+`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={0} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(texture, uv);`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={2} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(texture, vec2(uv.x, 1.0 - uv.y));`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={1} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`gl_FragColor = texture2D(texture, vec2(mod(uv.x*5.0,1.0), uv.y));`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={3} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`
+            vec4 sample = texture2D(texture, uv);
+            gl_FragColor = vec4(sample.x, sample.y, sample.z, sample.w);`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={4} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`
+            vec4 sample = texture2D(texture, uv);
+            gl_FragColor = vec4(sample.x, sample.x, sample.x, sample.w);`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleImage fancy={5} />
+          <CodePane
+            lang={'c'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`vec4 sample = texture2D(texture, uv);
+gl_FragColor = vec4( 
+                (sample.x + uv.x) * sample.w,
+                (sample.y + uv.y) * sample.w, 
+                sample.z,
+                sample.w
+               )`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Video?</Heading>
           <video autoPlay loop width={1024} height={720} muted>
             <source type="video/mp4" src={videoMP4} />
           </video>
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>Native Support For Video!</Heading>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'jsx'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`import videoMP4 from './video.mp4';
+
+<Surface width={426} height={240} pixelRatio={1}>
+  <Node shader={shaders.video} uniforms={{ texture: (redraw) => 
+    <video onTimeUpdate={redraw} autoPlay loop>
+      <source type="video/mp4" src={videoMP4} />
+    </video>
+  }} />
+</Surface>`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleVideoSlow />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <img src={question} height={400} />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <Heading textColor={'primary'}>onTimeUpdate is slow.</Heading>
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'jsx'}
+            style={{fontSize: 20, marginTop: -100}}
+            contentEditable={false}
+            source={`export class Video extends Component {
+  private videoRef = React.createRef<HTMLVideoElement>();
+  componentDidMount() {
+    const loop = () => {
+      this.raf = raf(loop);
+      if (!this.videoRef.current) {
+        return;
+      }
+      const currentTime = this.videoRef.current.currentTime;
+      // Optimization that only call onFrame if time changes
+      if (currentTime !== this.currentTime) {
+        this.currentTime = currentTime;
+        
+        //           THIS
+        this.props.onFrame();
+        //           THIS
+        
+      }
+    };
+    this.raf = raf(loop);
+  }
+  componentWillUnmount() {raf.cancel(this.raf);}
+  render() {
+    const {onFrame, ...rest} = this.props;
+    return <video {...rest} ref={this.videoRef} />;
+  }
+}
+`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <CodePane
+            lang={'jsx'}
+            style={{fontSize: 30, marginTop: 10}}
+            contentEditable={false}
+            source={`import videoMP4 from './video.mp4';
+
+<Surface width={426} height={240} pixelRatio={1}>
+  <Node shader={shaders.video} uniforms={{ texture: (redraw) => 
+    <Video onFrame={redraw} autoPlay loop>
+      <source type="video/mp4" src={videoMP4} />
+    </Video>
+  }} />
+</Surface>`}
+          />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          <ExampleVideoFast />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleVideo />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
+          foreach each frame render
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          pass that into this shader
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          blam
+          <ExampleVideo />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          lets invert the colors
+          <ExampleVideo />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          now that we can do it with a video, lets do it with the webcam, which is just a source
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleWebcam />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          what other cool things can we do. we can create a custom texture map
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          map.png this is a regular ole png. nothing special, but since we can pass a texture in as props, we can use it
+          to manipulate our image
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          map.png lets not think of this as a png, lets think of it as data. the data weve encode here is a value from 0
+          to 1
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleBump />
         </Slide>
         <Slide bgColor={'back'} textColor={'primary'}>
           <ExampleBump2 />
+        </Slide>
+        <Slide bgColor={'back'} textColor={'primary'}>
+          transition between
         </Slide>
       </Deck>
     </>
