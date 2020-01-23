@@ -830,8 +830,8 @@ gl_FragColor = vec4(
               style={{fontSize: 30, minWidth: 1100}}
               contentEditable={false}
               source={`float y = uv.y * 3.0; //0 3 6 9
-y = mod(y, 1.0); // 0 1 2 3
-vec4 c = texture2D(video, vec2(uv.x, y)); // sample x,y
+float modY = mod(y, 1.0); // 0 1 2 3
+vec4 c = texture2D(video, vec2(uv.x, modY)); // sample x,y
 gl_FragColor = vec4(
   c.r,
   c.g,
@@ -878,6 +878,10 @@ gl_FragColor = vec4(
           <img src={devil} height={400} />
         </Slide>
         <Slide bgColor={'back'}>
+          <H>Branching in GPU code is the devil</H>
+          <img src={devil} height={400} />
+        </Slide>
+        <Slide bgColor={'back'}>
           <H>Built In Functions</H>
           <img src={builtin} width={200} style={{marginTop: 20}} />
         </Slide>
@@ -889,7 +893,7 @@ gl_FragColor = vec4(
             contentEditable={false}
             source={`
 //  below 2.0 is zero      above 3.0 is zero
-                ↓                ↓
+                ↓                 ↓
 r = c.r * step(2.0, y) * step(y, 3.0)
 `}
           />
@@ -1001,7 +1005,7 @@ gl_FragColor = vec4(
             contentEditable={false}
             source={`uniform float mouseX;
 void main () { 
-    vec4 c = texture2D(t, uv);
+    vec4 c = texture2D(webcam, uv);
     // if statements are the devil
     if (uv.x > mouseX){
         gl_FragColor = vec4(c.r,c.g,c.b,1.0);
@@ -1092,7 +1096,7 @@ void main () {
 uniform sampler2D webcam, bump;
 void main () {
   vec4 intensity=texture2D(bump, uv);
-  gl_FragColor = texture2D(t, vec2( uv.x*intensity.r, uv.y+intensity.r ));
+  gl_FragColor = texture2D(webcam, vec2( uv.x*intensity.r, uv.y+intensity.r ));
 }`}
           />
         </Slide>
